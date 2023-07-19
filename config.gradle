@@ -5,14 +5,14 @@ ext {
     def design_version="1.3.0"
     def nav_version="2.2.1"
     def arouter_version="1.5.2"
-    def smart_version="2.0.3"
+    def smart_version="2.0.6"
     def retrofit_version="2.9.0"
     dependencies =  [
             arouter:"com.alibaba:arouter-api:$arouter_version",
             arouter_compiler:"com.alibaba:arouter-compiler:$arouter_version",
             viewmodel:"androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
             retrofit:"com.squareup.retrofit2:retrofit:$retrofit_version",
-            converterGson:"com.squareup.retrofit2:converter-gson:${retrofit_version}"
+            converterGson:"com.squareup.retrofit2:converter-gson:${retrofit_version}",
             smart:"com.scwang.smart:refresh-layout-kernel:$smart_version",
             smartheader:"com.scwang.smart:refresh-header-classics:$smart_version",
             smartfooter:"com.scwang.smart:refresh-footer-classics:$smart_version",
