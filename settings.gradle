@@ -17,3 +17,4 @@ rootProject.name = "IVideo"
 include ':app'
 include ':network'
 include ':MVICore'
+include ':homepage'
