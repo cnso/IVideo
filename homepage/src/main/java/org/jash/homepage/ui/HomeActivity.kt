@@ -13,7 +13,19 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content, HomepageFragment.newInstance("", ""))
+            .replace(R.id.content, HomepageFragment.newInstance())
             .commit()
+        binding.navigation.setOnItemSelectedListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.content,
+                    when(it.itemId) {
+                        R.id.home_homepage -> HomepageFragment.newInstance()
+                        else -> HomepageFragment.newInstance()
+                    }
+                )
+                .commit()
+            true
+        }
     }
+
 }

@@ -7,6 +7,7 @@ ext {
     def arouter_version="1.5.2"
     def smart_version="2.0.6"
     def retrofit_version="2.9.0"
+    def room_version="2.5.2"
     dependencies =  [
             arouter:"com.alibaba:arouter-api:$arouter_version",
             arouter_compiler:"com.alibaba:arouter-compiler:$arouter_version",
@@ -16,6 +17,10 @@ ext {
             smart:"io.github.scwang90:refresh-layout-kernel:$smart_version",
             smartheader:"io.github.scwang90:refresh-header-classics:$smart_version",
             smartfooter:"io.github.scwang90:refresh-footer-classics:$smart_version",
+            room:"androidx.room:room-runtime:$room_version",
+            room_ktx:"androidx.room:room-ktx:$room_version",
+            room_compiler:"androidx.room:room-compiler:$room_version"
+
     ]
     urls = [
            dev:"http://124.70.98.255:8083/",

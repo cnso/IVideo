@@ -6,14 +6,23 @@ plugins {
 
 android {
     namespace 'org.jash.homepage'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true"
+                ]
+
+            }
+        }
     }
 
     buildTypes {
@@ -48,8 +57,17 @@ dependencies {
     api libs.smart
     api libs.smartheader
     api libs.smartfooter
+    api libs.room
+    api libs.room_ktx
+    kapt libs.room_compiler
+
+//    kapt libs.room_compiler
+//    ksp libs.room_compiler
+
     implementation project(path: ':network')
     implementation project(path: ':MVICore')
+    implementation project(path: ':common')
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.9.0'

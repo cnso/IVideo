@@ -15,6 +15,7 @@ import org.jash.mvicore.viewmodel.IState
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
+@Suppress("UNCHECKED_CAST")
 open class BaseFragment<BINDING: ViewDataBinding, MODEL: BaseViewModel<*, *>>:Fragment() {
     lateinit var binding: BINDING
     lateinit var viewModel: MODEL
@@ -35,7 +36,7 @@ open class BaseFragment<BINDING: ViewDataBinding, MODEL: BaseViewModel<*, *>>:Fr
             }
             val vm = types[1]
             if (vm is Class<*>) {
-                viewModel = ViewModelProvider(requireActivity()).get(vm as Class<ViewModel>) as MODEL
+                viewModel = ViewModelProvider(this)[vm as Class<ViewModel>] as MODEL
                 val vmSuper = vm.genericSuperclass
                 if (vmSuper is ParameterizedType) {
                     val state = vmSuper.actualTypeArguments[1]

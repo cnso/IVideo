@@ -2,20 +2,30 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id "com.google.devtools.ksp"
 }
 
 android {
     namespace 'org.jash.ivideo'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "org.jash.ivideo"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true"
+                ]
+
+            }
+        }
     }
 
     buildTypes {
@@ -46,10 +56,12 @@ dependencies {
     implementation libs.viewmodel
     implementation libs.arouter
     implementation project(path: ':homepage')
+    implementation project(path: ':common')
     implementation project(path: ':network')
     implementation project(path: ':MVICore')
 
     kapt libs.arouter_compiler
+    kapt libs.room_compiler
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.9.0'

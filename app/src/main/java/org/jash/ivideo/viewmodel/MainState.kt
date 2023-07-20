@@ -1,6 +1,5 @@
 package org.jash.ivideo.viewmodel
 
-import org.jash.ivideo.model.VideoModel
 import org.jash.mvicore.viewmodel.IState
 
 sealed class MainState:IState {
