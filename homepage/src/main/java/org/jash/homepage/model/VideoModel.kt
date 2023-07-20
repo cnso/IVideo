@@ -18,7 +18,7 @@ data class VideoModel(
     val name: String,
     val playnum: Int,
     val preview_url: String,
-    val publish_time: String,
+    val publish_time: String?,
     val title: String,
     val userid: String,
     val verifycode: String,
