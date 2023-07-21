@@ -11,17 +11,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.coroutines.launch
+import org.jash.common.adapter.CommonAdapter
 import org.jash.common.logDebug
 import org.jash.homepage.R
 import org.jash.homepage.database.homeDatabase
 import org.jash.homepage.databinding.FragmentSimpleTypeBinding
+import org.jash.homepage.model.VideoModel
 import org.jash.homepage.viewmodel.HomepageState
 import org.jash.homepage.viewmodel.HomepageViewModel
 import org.jash.homepage.viewmodel.SimpleTypeIntent
 import org.jash.homepage.viewmodel.SimpleTypeState
 import org.jash.homepage.viewmodel.SimpleTypeViewModel
 import org.jash.mvicore.BaseFragment
+import org.jash.homepage.BR
 
 private const val CHANNEL_ID = "channelId"
 
@@ -35,6 +41,7 @@ class SimpleTypeFragment : BaseFragment<FragmentSimpleTypeBinding, SimpleTypeVie
     // TODO: Rename and change types of parameters
     private lateinit var channelId: String
     private var page = 1
+    private val adapter by lazy { CommonAdapter<VideoModel>(R.layout.item_video, BR.video) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,19 +56,41 @@ class SimpleTypeFragment : BaseFragment<FragmentSimpleTypeBinding, SimpleTypeVie
             viewModel.intent.send(SimpleTypeIntent.GetLocalVideo(channelId))
             viewModel.intent.send(SimpleTypeIntent.GetRemoteVideo(channelId, page))
         }
+        binding.recycler.adapter = adapter
+        binding.refresh.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+            override fun onRefresh(refreshLayout: RefreshLayout) {
+                lifecycleScope.launch {
+                    page = 1
+                    viewModel.intent.send(SimpleTypeIntent.GetRemoteVideo(channelId, page))
+                }
+            }
+
+            override fun onLoadMore(refreshLayout: RefreshLayout) {
+                lifecycleScope.launch {
+                    viewModel.intent.send(SimpleTypeIntent.GetRemoteVideo(channelId, ++page))
+                }
+            }
+
+        })
 
     }
     fun error(error: SimpleTypeState.Error) {
+        binding.refresh.finishRefresh()
         logDebug(error.msg)
         Toast.makeText(context, error.msg, Toast.LENGTH_LONG).show()
     }
     fun loaded(response: SimpleTypeState.RemoteResponse) {
         logDebug("网络类型 ${response.data}")
+        binding.refresh.finishRefresh()
+        if (page == 1) {
+            adapter.clear()
+        }
+        adapter += response.data
 
     }
     fun loadLocal(response: SimpleTypeState.LocalResponse) {
         logDebug("本地类型 ${response.data}")
-
+        adapter += response.data
     }
     override val defaultViewModelProviderFactory: ViewModelProvider.Factory
         get() = viewModelFactory { initializer { SimpleTypeViewModel(requireContext().homeDatabase.getVideoDao()) } }

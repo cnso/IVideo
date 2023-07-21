@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import org.jash.common.logDebug
 import org.jash.homepage.dao.VideoDao
 import org.jash.homepage.net.HomeService
 import org.jash.mvicore.viewmodel.BaseViewModel
@@ -29,11 +30,18 @@ class SimpleTypeViewModel(val dao: VideoDao):BaseViewModel<SimpleTypeIntent, Sim
     }
     fun getRemoteVideo(channelId: String, page:Int) {
         viewModelScope.launch(Dispatchers.IO) {
+
             state.value = try {
                 val res = service.getSimpleVideoByChannelId(channelId, page, 10)
+                logDebug(res)
                 if (res.code == 0) {
                     dao.insert(*res.data.toTypedArray())
-                    SimpleTypeState.RemoteResponse(res.data)
+                    val response = SimpleTypeState.RemoteResponse(res.data)
+                    if (state.value == response) {
+                        SimpleTypeState.Error("无新数据")
+                    } else {
+                        response
+                    }
 
                 } else {
                     SimpleTypeState.Error(res.msg)
