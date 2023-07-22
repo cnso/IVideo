@@ -12,6 +12,7 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jash.common.logDebug
+import org.jash.homepage.R
 import org.jash.homepage.adapter.SimpleTypeAdapter
 import org.jash.homepage.dao.SimpleTypeDao
 import org.jash.homepage.database.HomeDatabase
@@ -21,6 +22,7 @@ import org.jash.homepage.viewmodel.HomepageIntent
 import org.jash.homepage.viewmodel.HomepageState
 import org.jash.homepage.viewmodel.HomepageViewModel
 import org.jash.mvicore.BaseFragment
+import org.jash.network.user
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,6 +45,17 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel
         binding.pager.adapter = adapter
         binding.tab.setupWithViewPager(binding.pager)
         binding.pager.currentItem = 1
+
+        binding.avatar.setImageResource(R.drawable.home_person)
+
+        binding.avatar.setOnClickListener {
+            if(user == null) {
+
+            } else {
+
+            }
+        }
+
     }
     fun error(error:HomepageState.Error) {
         Toast.makeText(context, error.msg, Toast.LENGTH_LONG).show()

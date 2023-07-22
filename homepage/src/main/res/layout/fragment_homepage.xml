@@ -17,10 +17,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/bar"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="头部"/>
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_notifications"/>
         </LinearLayout>
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
