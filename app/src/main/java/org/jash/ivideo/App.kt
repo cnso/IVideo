@@ -6,12 +6,14 @@ import androidx.room.Room
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.android.arouter.utils.ClassUtils
 import org.jash.homepage.database.HomeDatabase
+import org.jash.network.gson
+import org.jash.network.model.User
+import org.jash.network.user
 
 class App : Application() {
     lateinit var homeDatabase: HomeDatabase
     override fun onCreate() {
         super.onCreate()
-        ARouter.init(this)
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
             ARouter.openDebug()
@@ -19,7 +21,12 @@ class App : Application() {
 //                ClassUtils.getFileNameByPackageName(this, "com.alibaba.android.arouter.routes")
 //            println(set)
         }
+        ARouter.init(this)
         homeDatabase = Room.databaseBuilder(this, HomeDatabase::class.java, "home")
             .build()
+//        val preferences = getSharedPreferences("login", MODE_PRIVATE)
+//        preferences.getString("user", null)?.let {
+//           user = gson.fromJson(it, User::class.java)
+//        }
     }
 }

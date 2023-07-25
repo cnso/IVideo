@@ -64,6 +64,7 @@ dependencies {
 //    kapt libs.room_compiler
 //    ksp libs.room_compiler
 
+    api project(path: ':mine')
     implementation project(path: ':network')
     implementation project(path: ':MVICore')
     implementation project(path: ':common')

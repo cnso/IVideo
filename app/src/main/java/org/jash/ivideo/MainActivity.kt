@@ -26,5 +26,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         ARouter.getInstance()
             .build("/homemodel/home")
             .navigation()
+        finish()
     }
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.room.Room
+import com.alibaba.android.arouter.launcher.ARouter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jash.common.logDebug
@@ -21,6 +22,7 @@ import org.jash.homepage.databinding.FragmentHomepageBinding
 import org.jash.homepage.viewmodel.HomepageIntent
 import org.jash.homepage.viewmodel.HomepageState
 import org.jash.homepage.viewmodel.HomepageViewModel
+import org.jash.mine.MineFragment
 import org.jash.mvicore.BaseFragment
 import org.jash.network.user
 
@@ -50,9 +52,13 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel
 
         binding.avatar.setOnClickListener {
             if(user == null) {
-
+                ARouter.getInstance()
+                    .build("/mine/login")
+                    .navigation()
             } else {
-
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.content, MineFragment.newInstance())
+                    .commit()
             }
         }
 

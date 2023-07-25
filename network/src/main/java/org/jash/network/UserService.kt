@@ -9,8 +9,8 @@ import retrofit2.http.POST
 interface UserService {
     @POST("/user/login")
     @FormUrlEncoded
-    fun login(@Field("username") username:String, @Field("password") password:String):ApiRes<User>
+    suspend fun login(@Field("username") username:String, @Field("password") password:String):ApiRes<User>
     @POST("/user/register")
     @FormUrlEncoded
-    fun register(@Field("username") username:String, @Field("password") password:String):ApiRes<User>
+    suspend fun register(@Field("username") username:String, @Field("password") password:String):ApiRes<User>
 }
