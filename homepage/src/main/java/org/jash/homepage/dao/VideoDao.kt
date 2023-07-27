@@ -13,5 +13,7 @@ interface VideoDao {
     fun getAll():List<VideoModel>
     @Query("select * from videomodel where channelid = :channelId limit 0, :pageSize")
     fun getByChannelId(channelId: String, pageSize:Int):List<VideoModel>
+    @Query("select * from videomodel where id = :id")
+    fun getVideoById(id:Int):VideoModel
 
 }

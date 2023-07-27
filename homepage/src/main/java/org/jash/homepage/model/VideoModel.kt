@@ -2,6 +2,7 @@ package org.jash.homepage.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.alibaba.android.arouter.launcher.ARouter
 
 @Entity
 data class VideoModel(
@@ -24,4 +25,11 @@ data class VideoModel(
     val verifycode: String,
     val videomainimag: String,
     val videopath: String
-)
+) {
+    fun showDetails() {
+        ARouter.getInstance()
+            .build("/homemodel/details")
+            .withInt("id", id)
+            .navigation()
+    }
+}

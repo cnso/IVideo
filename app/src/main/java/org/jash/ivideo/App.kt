@@ -24,9 +24,10 @@ class App : Application() {
         ARouter.init(this)
         homeDatabase = Room.databaseBuilder(this, HomeDatabase::class.java, "home")
             .build()
-//        val preferences = getSharedPreferences("login", MODE_PRIVATE)
-//        preferences.getString("user", null)?.let {
-//           user = gson.fromJson(it, User::class.java)
-//        }
+        val preferences = getSharedPreferences("login", MODE_PRIVATE)
+//        preferences.edit().remove("user").apply()
+        preferences.getString("user", null)?.let {
+           user = gson.fromJson(it, User::class.java)
+        }
     }
 }

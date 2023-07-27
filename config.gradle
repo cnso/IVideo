@@ -20,10 +20,15 @@ ext {
             room:"androidx.room:room-runtime:$room_version",
             room_ktx:"androidx.room:room-ktx:$room_version",
             room_compiler:"androidx.room:room-compiler:$room_version",
-            glide:"com.github.bumptech.glide:glide:4.15.1"
+            glide:"com.github.bumptech.glide:glide:4.15.1",
+            gsyvideo:'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.4.0-release-jitpack',
+            danmaku:'com.github.ctiao:DanmakuFlameMaster:0.9.25',
+            danmaku_armv7a:'com.github.ctiao:ndkbitmap-armv7a:0.9.21',
+            danmaku_armv5:'com.github.ctiao:ndkbitmap-armv5:0.9.21',
+            danmaku_x86:'com.github.ctiao:ndkbitmap-x86:0.9.21'
     ]
     urls = [
-           dev:"http://124.70.98.255:8083/",
-           test:"http://124.70.98.255:8083/"
+           dev:"http://10.161.9.80:8083/",
+           test:"http://10.161.9.80:8083/"
     ]
 }
