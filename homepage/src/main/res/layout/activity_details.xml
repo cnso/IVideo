@@ -22,6 +22,7 @@
         <master.flame.danmaku.ui.widget.DanmakuView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#ff0000"
             android:id="@+id/danmaku"
             app:layout_constraintTop_toTopOf="@id/video"
             app:layout_constraintStart_toStartOf="@id/video"
