@@ -64,7 +64,7 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding, DetailsViewModel>()
                 binding.danmaku.start()
             }
         })
-        binding.danmaku.enableDanmakuDrawingCache(true);
+        binding.danmaku.enableDanmakuDrawingCache(true)
         //DanmakuContext主要用于弹幕样式的设置
         danmakuContext = DanmakuContext.create()
         danmakuContext.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 3F) //描边
