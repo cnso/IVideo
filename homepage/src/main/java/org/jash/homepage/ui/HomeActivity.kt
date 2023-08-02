@@ -8,6 +8,7 @@ import org.jash.common.logDebug
 import org.jash.homepage.R
 import org.jash.homepage.databinding.ActivityHomeBinding
 import org.jash.homepage.viewmodel.HomeViewModel
+import org.jash.live.LiveRoomFragment
 import org.jash.mine.MineFragment
 import org.jash.mvicore.BaseActivity
 import org.jash.network.user
@@ -29,6 +30,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
             val fragment = supportFragmentManager.fragments[0]
             if (it.itemId != when(fragment) {
                 is HomepageFragment -> R.id.home_homepage
+                is LiveRoomFragment -> R.id.home_recording
                 is MineFragment -> R.id.home_mine
                 else -> R.id.home_homepage
             }) {
@@ -36,6 +38,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
                     .replace(R.id.content,
                         when(it.itemId) {
                             R.id.home_homepage -> HomepageFragment.newInstance()
+                            R.id.home_recording -> LiveRoomFragment.newInstance()
                             R.id.home_mine -> MineFragment.newInstance()
                             else -> HomepageFragment.newInstance()
                         }
@@ -60,6 +63,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
         supportFragmentManager.addFragmentOnAttachListener { _, fragment ->
             val itemId = when(fragment) {
                 is HomepageFragment -> R.id.home_homepage
+                is LiveRoomFragment -> R.id.home_recording
                 is MineFragment -> R.id.home_mine
                 else -> R.id.home_homepage
             }

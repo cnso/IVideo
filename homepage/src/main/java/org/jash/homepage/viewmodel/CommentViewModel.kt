@@ -4,10 +4,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import org.jash.common.logDebug
 import org.jash.homepage.dao.VideoDao
 import org.jash.homepage.model.Comment
 import org.jash.homepage.net.HomeService
 import org.jash.mvicore.viewmodel.BaseViewModel
+import org.jash.network.gson
 import org.jash.network.retrofit
 
 class CommentViewModel(val videoDao: VideoDao):BaseViewModel<CommentIntent, CommentState>() {
@@ -32,6 +34,7 @@ class CommentViewModel(val videoDao: VideoDao):BaseViewModel<CommentIntent, Comm
     fun publishComment(comment: Comment) {
         viewModelScope.launch {
             state.value = try {
+                logDebug(gson.toJson(comment))
                 val res = service.publishComment(comment)
                 if (res.code == 0) {
                     CommentState.PublishResponse(res.data)

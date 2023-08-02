@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import com.alibaba.android.arouter.launcher.ARouter
 
 class MineFragment : Fragment() {
 
@@ -16,6 +18,14 @@ class MineFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mine, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.bt).setOnClickListener {
+            ARouter.getInstance().build("/live/publish")
+                .navigation()
+        }
     }
 
     companion object {

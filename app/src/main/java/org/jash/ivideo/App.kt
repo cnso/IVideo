@@ -5,12 +5,13 @@ import android.content.Context
 import androidx.room.Room
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.android.arouter.utils.ClassUtils
+import org.jash.common.BaseApplication
 import org.jash.homepage.database.HomeDatabase
 import org.jash.network.gson
 import org.jash.network.model.User
 import org.jash.network.user
 
-class App : Application() {
+class App : BaseApplication() {
     lateinit var homeDatabase: HomeDatabase
     override fun onCreate() {
         super.onCreate()

@@ -30,7 +30,6 @@ class SimpleTypeViewModel(val dao: VideoDao):BaseViewModel<SimpleTypeIntent, Sim
     }
     fun getRemoteVideo(channelId: String, page:Int) {
         viewModelScope.launch(Dispatchers.IO) {
-
             state.value = try {
                 val res = service.getSimpleVideoByChannelId(channelId, page, 10)
                 logDebug(res)

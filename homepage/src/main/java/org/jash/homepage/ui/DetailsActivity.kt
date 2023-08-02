@@ -114,7 +114,6 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding, DetailsViewModel>()
         danmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL).apply {
             this.text = response.data.content
             this.textColor = Color.WHITE
-            this.borderColor = Color.BLACK
             this.textSize = 100f
             binding.danmaku.addDanmaku(this)
         }

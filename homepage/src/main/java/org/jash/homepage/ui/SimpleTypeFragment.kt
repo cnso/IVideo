@@ -76,12 +76,14 @@ class SimpleTypeFragment : BaseFragment<FragmentSimpleTypeBinding, SimpleTypeVie
     }
     fun error(error: SimpleTypeState.Error) {
         binding.refresh.finishRefresh()
+        binding.refresh.finishLoadMore()
         logDebug(error.msg)
         Toast.makeText(context, error.msg, Toast.LENGTH_LONG).show()
     }
     fun loaded(response: SimpleTypeState.RemoteResponse) {
         logDebug("网络类型 ${response.data}")
         binding.refresh.finishRefresh()
+        binding.refresh.finishLoadMore()
         if (page == 1) {
             adapter.clear()
         }
@@ -101,7 +103,6 @@ class SimpleTypeFragment : BaseFragment<FragmentSimpleTypeBinding, SimpleTypeVie
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
-
          * @return A new instance of fragment SimpleTypeFragment.
          */
         // TODO: Rename and change types and number of parameters
