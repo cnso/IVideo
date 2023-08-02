@@ -13,12 +13,14 @@ import org.jash.live.databinding.ActivityLiveBinding
 class LiveActivity : AppCompatActivity() {
     val binding:ActivityLiveBinding by lazy { DataBindingUtil.setContentView(this, R.layout.activity_live) }
     @Autowired
-    lateinit var title:String
+    @JvmField
+    var title:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ARouter.getInstance().inject(this)
         binding.player.setUp("http://10.161.9.80:8066/live/livestream.flv", false, title)
         binding.player.backButton.setOnClickListener { finish() }
         lifecycle.addObserver(GSYLifecycleObserver(binding.player))
+        binding.player.startPlayLogic()
     }
 }
