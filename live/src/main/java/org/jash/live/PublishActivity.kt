@@ -9,6 +9,7 @@ import com.ivideo.avcore.rtmplive.Config
 import com.ivideo.avcore.rtmplive.MediaPublisher
 import com.ivideo.avcore.wiget.CameraGLSurfaceView.OnSurfaceCallback
 import org.jash.common.logDebug
+import org.jash.live.adapter.MsgAdapter
 import org.jash.live.databinding.ActivityPublishBinding
 import org.jash.live.xmpp.XMPPManager
 import org.jash.network.user
@@ -25,15 +26,24 @@ class PublishActivity : AppCompatActivity(), MessageListener, ParticipantStatusL
     lateinit var binding: ActivityPublishBinding
     lateinit var mediaPublisher: MediaPublisher
     var muc:MultiUserChat? = null
+    lateinit var adapter:MsgAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_publish)
+        adapter = MsgAdapter()
+        binding.chatroom.adapter = adapter
         thread {
             user?.let {
                 muc = XMPPManager.createChatRoom("${it.username}的房间", it.username)
                 muc?.addMessageListener(this)
                 muc?.addParticipantStatusListener(this)
+            }
+        }
+        binding.send.setOnClickListener {
+            if (binding.message.text.isNotEmpty()) {
+                muc?.sendMessage(binding.message.text.toString())
+                binding.message.text.clear()
             }
         }
     }
@@ -90,19 +100,23 @@ class PublishActivity : AppCompatActivity(), MessageListener, ParticipantStatusL
 
     override fun processMessage(message: Message?) {
         message?.takeIf { it.from.hasResource() }?.let {
-            logDebug( "${it.from.resourceOrEmpty}: ${it.body}")
+            val name = it.from.resourceOrEmpty
+            logDebug( "$name: ${it.body}")
+            adapter += org.jash.live.model.Message(name.toString() + (if(name == muc?.nickname) "(我)" else ""), it.body)
         }
     }
 
     override fun joined(participant: EntityFullJid?) {
         participant?.let {
             logDebug("${it.resourceOrEmpty} 加入直播间")
+            adapter += "${it.resourceOrEmpty} 加入直播间"
         }
     }
 
     override fun left(participant: EntityFullJid?) {
         participant?.let {
             logDebug("${it.resourceOrEmpty} 离开直播间")
+            adapter += "${it.resourceOrEmpty} 离开直播间"
         }
     }
 }

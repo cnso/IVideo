@@ -27,6 +27,7 @@ object XMPPManager {
             .setXmppDomain("oldwang-office")
             .setPort(5222)
             .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)
+            .setConnectTimeout(30000)
             .build()
         )
         connection?.connect()
@@ -65,11 +66,14 @@ object XMPPManager {
     fun login(username: String, password: String) : Boolean{
         connection?.takeIf { it.isConnected }?.let {
             try {
+                it.replyTimeout = 30000
                 it.login(username, password)
                 return true
             } catch (e:SASLErrorException) {
                 logDebug(e.message)
                 return false
+            } catch (e:Exception) {
+                logDebug(e.message)
             }
         }
         return false
