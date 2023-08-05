@@ -29,6 +29,7 @@ android {
 
     buildTypes {
         release {
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -44,6 +45,9 @@ android {
         dataBinding true
         buildConfig true
     }
+}
+configurations {
+    all*.exclude group: 'xpp3', module: 'xpp3'
 }
 kapt {
     arguments {

@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.jash.common.adapter.CommonAdapter
+import org.jash.common.logDebug
 import org.jash.live.databinding.FragmentLiveRoomBinding
 import org.jash.live.model.LiveRoom
 import org.jash.live.viewmodel.LiveRoomIntent
@@ -32,6 +34,10 @@ class LiveRoomFragment : BaseFragment<FragmentLiveRoomBinding, LiveRoomViewModel
     }
     fun loaded(response:LiveRoomState.RoomRespose) {
         adapter += response.data
+    }
+    fun error(error:LiveRoomState.Error) {
+        Snackbar.make(binding.root, error.msg, Snackbar.LENGTH_LONG).show()
+        logDebug(error)
     }
     companion object {
         @JvmStatic

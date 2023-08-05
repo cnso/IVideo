@@ -1,5 +1,6 @@
 package org.jash.live;
 
+import org.jash.live.xmpp.XMPPManager;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

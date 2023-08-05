@@ -3,6 +3,7 @@ package org.jash.homepage.ui
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -53,6 +54,7 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding, DetailsViewModel>()
         lifecycleScope.launch {
             viewModel.intent.send(DetailsIntent.LoadLocal(id))
         }
+        val model = ViewModelProvider(this).get(DetailsViewModel::class.java)
     }
     private fun initView() {
         binding.pager.adapter = DetailsAdapter(supportFragmentManager, id)

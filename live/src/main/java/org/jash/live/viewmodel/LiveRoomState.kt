@@ -5,4 +5,5 @@ import org.jash.mvicore.viewmodel.IState
 
 sealed class LiveRoomState:IState {
     data class RoomRespose(val data:List<LiveRoom>):LiveRoomState()
+    data class Error(val msg:String):LiveRoomState()
 }
